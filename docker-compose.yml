@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  bear:
+    build: bear/
+    ports:
+      - 8000:8000
+    networks:
+      - deploy_network
+    container_name: bear
+  ui:
+    build: dash/
+    depends_on:
+      - bear
+    ports:
+      - 8501:8501
+    networks:
+      - deploy_network
+    container_name: dash
+
+networks:
+  deploy_network:
+    driver: bridge
